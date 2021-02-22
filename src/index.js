@@ -19,8 +19,29 @@ class Board extends React.Component {
         super(props);
         this.state = {
             squares: Array(9).fill(null),
-            blank: null
+            blank: null,
+            solution: null
         };
+
+        this.IsSolutionPresent = () => {
+            var solution = this.state.solution
+            if(solution == null){
+                return<div></div>
+            }else{
+                var steps = solution.steps.map((item, index) => {
+                    return<li>
+                        {item}
+                    </li>
+                })
+
+                return<div style={{textAlign: 'left'}}>
+                    <h5>
+                        Steps:
+                    </h5>
+                    {steps}
+                </div>
+            }
+        }
     }
 
     componentDidMount() {
@@ -56,13 +77,13 @@ class Board extends React.Component {
     }
 
     getSolution() {
-        var data = new FormData()
-        data.append('initial_state', this.state.squares)
-        fetch('/solution', data).then(res => res.json()).then(data => {
+
+        fetch('/solution?initial_state=' + (this.state.squares).toString()).then(res => res.json()).then(data => {
             this.setState({
                 solution: data
             });
             console.log(data)
+            alert('Done')
         });
     }
 
@@ -96,6 +117,8 @@ class Board extends React.Component {
                     {this.renderSquare(8)}
                 </div>
                 <button className='tool' onClick={() => this.getSolution()}>Get Solution</button>
+                <br/>
+                <this.IsSolutionPresent/>
             </div>
         );
     }

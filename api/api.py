@@ -20,7 +20,10 @@ def startState():
 @app.route('/solution')
 def get_solutions():
 
-    start_state = request.form['initial_state']
+    start_state = request.args['initial_state']
+    start_state = start_state.split(',')
+    start_state = [int(item) for item in start_state]
+    print('Received state: ', start_state, '\n\n')
     start_state = np.array(start_state).reshape((3, 3))
 
     run_call = getattr(logic,'bfs')
@@ -40,4 +43,5 @@ def get_solutions():
     """
     Generate solution using breath first search
     """
+    print(response)
     return jsonify(response)
