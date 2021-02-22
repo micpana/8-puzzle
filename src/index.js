@@ -24,7 +24,7 @@ class Board extends React.Component {
     }
 
     componentDidMount() {
-        fetch('/solution').then(res => res.json()).then(data => {
+        fetch('/startState').then(res => res.json()).then(data => {
             this.setState({
                 squares: data,
                 blank: data.indexOf(0)
@@ -47,11 +47,22 @@ class Board extends React.Component {
     }
 
     handleNew() {
-        fetch('/solution').then(res => res.json()).then(data => {
+        fetch('/startState').then(res => res.json()).then(data => {
             this.setState({
                 squares: data,
                 blank: data.indexOf(0)
             });
+        });
+    }
+
+    getSolution() {
+        var data = new FormData()
+        data.append('initial_state', this.state.squares)
+        fetch('/solution', data).then(res => res.json()).then(data => {
+            this.setState({
+                solution: data
+            });
+            console.log(data)
         });
     }
 
@@ -84,6 +95,7 @@ class Board extends React.Component {
                     {this.renderSquare(7)}
                     {this.renderSquare(8)}
                 </div>
+                <button className='tool' onClick={() => this.getSolution()}>Get Solution</button>
             </div>
         );
     }
