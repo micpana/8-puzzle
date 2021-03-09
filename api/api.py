@@ -2,7 +2,9 @@ import time
 from flask import Flask, request
 from flask.json import jsonify
 import random
-from api import puzzle
+import numpy as np
+import math
+import logic
 
 app = Flask(__name__)
 
