@@ -9,6 +9,11 @@ app = Flask(__name__)
 @app.route('/time')
 def get_current_time():
     return {'time':time.time()}
+    
+@app.route('/startState')
+def startState():
+
+    return jsonify(random.sample(range(9), 9))
 
 @app.route('/initial')
 def get_initial_state():
