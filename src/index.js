@@ -44,11 +44,10 @@ class Board extends React.Component {
     }
 
     componentDidMount() {
-        fetch('/initial').then(res => res.json()).then(data => {
+        fetch('/startState').then(res => res.json()).then(data => {
             this.setState({
                 squares: data,
-                blank: data.indexOf(0),
-                solution: null
+                blank: data.indexOf(0)
             });
         });
     }
