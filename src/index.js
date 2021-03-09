@@ -20,7 +20,27 @@ class Board extends React.Component {
         this.state = {
             squares: Array(9).fill(null),
             blank: null,
-        };
+        };        
+        
+        this.IsSolutionPresent = () => {
+            var solution = this.state.solution
+            if(solution == null){
+                return<div></div>
+            }else{
+                var steps = solution.steps.map((item, index) => {
+                    return<li>
+                        {item}
+                    </li>
+                })
+
+                return<div style={{textAlign: 'left'}}>
+                    <h5>
+                        Steps:
+                    </h5>
+                    {steps}
+                </div>
+            }
+        }
     }
 
     componentDidMount() {
